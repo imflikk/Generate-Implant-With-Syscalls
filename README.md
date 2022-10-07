@@ -19,11 +19,12 @@ This application's flow uses the syscalls below.
 # Requirements
 - Windows Machine
 - Python3 with pycryptodome library (provided in requirements.txt)
-- Visual Studio Command Line Tools
+- Visual Studio Command Line Tools (x64 Native Tools Command Prompt for VS 20XX)
+	- Desktop C++ Development Tools must be installed through the Visual Studio Installer as well
 
 
 # Usage
-The command below should be run in a folder by itself (to keep things organized) with a shellcode file provided as an argument.
+The command below should be run (in the x64 Native Tools Command Prompt for VS 20XX) in a folder by itself, to keep things organized, with a shellcode file provided as an argument.
 
 ```default
 python generate-implant.py C:\Payloads\cs.bin
