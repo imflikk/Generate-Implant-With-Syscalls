@@ -41,7 +41,7 @@ It will generate a new folder named "src" and write the following files to it fr
 
 When the compilation process is complete, is should generate a new executable named "implant.exe" in the same folder as the Python script.
 
-This implant is used by simply running it on the command line and providing the PID of a target process to inject the shellcode into.  In the example below, a notepad.exe process was launched ahead of time with the PID 15324.
+This implant is used by simply running it on the command line.  If a PID is provided, it will attempt to inject the payload into that process.  Otherwise, it will spawn a new werfault.exe process to inject the payload into.  In the example below, a notepad.exe process was launched ahead of time with the PID 15324.
 
 ```default
 C:\Tools\RTO-Malware\test>implant.exe 15324
